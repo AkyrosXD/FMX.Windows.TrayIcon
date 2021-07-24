@@ -1,0 +1,67 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'BlankForm'
+  ClientHeight = 292
+  ClientWidth = 393
+  Position = ScreenCenter
+  FormFactor.Width = 1280
+  FormFactor.Height = 1024
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object grdlyt: TGridLayout
+    Align = Client
+    ItemHeight = 64.000000000000000000
+    ItemWidth = 128.000000000000000000
+    Orientation = Horizontal
+    Size.Width = 393.000000000000000000
+    Size.Height = 292.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object btnShowTrayIcon: TButton
+      Size.Width = 128.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Show Tray Icon'
+      OnClick = btnShowTrayIconClick
+    end
+    object btnHideTrayIcon: TButton
+      Position.X = 128.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Hide Tray Icon'
+      OnClick = btnHideTrayIconClick
+    end
+    object btnInfo: TButton
+      Position.X = 256.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Balloon Tip (Info)'
+      OnClick = btnInfoClick
+    end
+    object btnWarning: TButton
+      Position.Y = 64.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Balloon Tip (Warning)'
+      OnClick = btnWarningClick
+    end
+    object btnError: TButton
+      Position.X = 128.000000000000000000
+      Position.Y = 64.000000000000000000
+      Size.Width = 128.000000000000000000
+      Size.Height = 64.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      Text = 'Balloon Tip (Error)'
+      OnClick = btnErrorClick
+    end
+  end
+end

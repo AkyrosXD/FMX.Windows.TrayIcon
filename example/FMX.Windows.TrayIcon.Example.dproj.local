@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2021/07/24 14:52:33.322,=F:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/24 14:53:02.954,F:\Documents\Embarcadero\Studio\Projects\FMX.Windows.TrayIcon.dproj=F:\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/07/24 14:53:21.617,F:\Documents\Embarcadero\Studio\Projects\FMX.Windows.TrayIcon.Example.dproj=F:\Documents\Embarcadero\Studio\Projects\FMX.Windows.TrayIcon.dproj</Transaction>
+    <Transaction>2021/07/24 14:53:35.622,F:\Documents\Embarcadero\Studio\Projects\uMainForm.pas=F:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/24 14:53:35.622,F:\Documents\Embarcadero\Studio\Projects\uMainForm.fmx=F:\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>2021/07/24 14:54:06.394,F:\Documents\GitHub\FMX.Windows.TrayIcon\example\uMainForm.pas=F:\Documents\Embarcadero\Studio\Projects\uMainForm.pas</Transaction>
+    <Transaction>2021/07/24 14:54:06.394,F:\Documents\GitHub\FMX.Windows.TrayIcon\example\uMainForm.fmx=F:\Documents\Embarcadero\Studio\Projects\uMainForm.fmx</Transaction>
+    <Transaction>2021/07/24 14:54:26.400,F:\Documents\GitHub\FMX.Windows.TrayIcon\example\FMX.Windows.TrayIcon.Example.dproj=F:\Documents\Embarcadero\Studio\Projects\FMX.Windows.TrayIcon.Example.dproj</Transaction>
+    <Transaction>2021/07/24 15:04:50.043,=F:\Documents\GitHub\FMX.Windows.TrayIcon\FMX.Windows.TrayIcon.pas</Transaction>
+  </Transactions>
+</BorlandProject>
