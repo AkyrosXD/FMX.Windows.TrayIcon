@@ -19,9 +19,6 @@ type
 type
   TTrayIcon = class(TComponent)
   private
-    var
-      notifyIconData: _NOTIFYICONDATA;
-      bVisible: Boolean;
     procedure OnMenuToggleClick(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
@@ -46,6 +43,9 @@ var
   s_menu: TPopupMenu;
   s_contextMenuHandle: HWND;
   s_contextMenuWindow: TForm;
+  s_uTaskbarRestart: UINT;
+  s_bVisible: Boolean;
+  s_notifyIconData: _NOTIFYICONDATA;
 
 function WndProcCallback(hWindow: HWND; uMsg: UINT; wpParam: WPARAM; lpParam: LPARAM): LRESULT; stdcall;
 var
@@ -75,6 +75,14 @@ begin
         end;
     end;
   end;
+  if uMsg = s_uTaskbarRestart then
+  begin
+    if s_bVisible then
+    begin
+      // if explorer crashes and restarts, add again the icon
+      Shell_NotifyIcon(NIM_ADD, @s_notifyIconData);
+    end;
+  end;
   Result := CallWindowProc(s_ptrOldWindowProc, hWindow, uMsg, wpParam, lpParam);
 end;
 
@@ -84,19 +92,20 @@ begin
   begin
     raise Exception.Create('AOwner cannot be null');
   end;
-  bVisible := False;
+  s_bVisible := False;
+  s_uTaskbarRestart := RegisterWindowMessageA('TaskbarCreated');
   s_contextMenuWindow := TForm.CreateNew(nil);
   s_contextMenuHandle := WindowHandleToPlatform(s_contextMenuWindow.Handle).Wnd;
   inherited Create(s_contextMenuWindow);
   s_callbackMessage := WM_USER + Self.InstanceSize; // it has to be something unique
   s_menu := TPopupMenu.Create(s_contextMenuWindow);
   s_menu.Parent := s_contextMenuWindow;
-  with notifyIconData do
+  with s_notifyIconData do
   begin
     cbSize := SizeOf;
     Wnd := s_contextMenuHandle;
     uID := Cardinal(s_contextMenuHandle);
-    uFlags := NIF_MESSAGE or NIF_ICON or NIF_TIP;
+    uFlags := NIF_MESSAGE or NIF_ICON or NIF_TIP or NIF_STATE;
     dwInfoFlags := NIIF_NONE;
     uCallbackMessage := s_callbackMessage;
     hIcon := GetClassLong(s_contextMenuHandle, GCL_HICONSM)
@@ -105,7 +114,7 @@ end;
 
 destructor TTrayIcon.Destroy;
 begin
-  Shell_NotifyIcon(NIM_DELETE, @notifyIconData);
+  Shell_NotifyIcon(NIM_DELETE, @s_notifyIconData);
   inherited;
 end;
 
@@ -177,26 +186,26 @@ end;
 
 procedure TTrayIcon.ShowBalloon(ATitle, AText: string; AType: TBalloonType);
 begin
-  if bVisible then
+  if s_bVisible then
   begin
-    StrLCopy(notifyIconData.szInfoTitle, PChar(ATitle), High(notifyIconData.szInfoTitle));
-    StrLCopy(notifyIconData.szInfo, PChar(AText), High(notifyIconData.szInfo));
-    notifyIconData.dwInfoFlags := Cardinal(AType);
-    notifyIconData.uFlags := NIF_INFO;
-    Shell_NotifyIcon(NIM_MODIFY, @notifyIconData);
+    StrLCopy(s_notifyIconData.szInfoTitle, PChar(ATitle), High(s_notifyIconData.szInfoTitle));
+    StrLCopy(s_notifyIconData.szInfo, PChar(AText), High(s_notifyIconData.szInfo));
+    s_notifyIconData.dwInfoFlags := Cardinal(AType);
+    s_notifyIconData.uFlags := NIF_INFO;
+    Shell_NotifyIcon(NIM_MODIFY, @s_notifyIconData);
 
     // reset everything after the message
-    FillChar(notifyIconData.szInfoTitle, High(notifyIconData.szInfoTitle), 0);
-    FillChar(notifyIconData.szInfo, High(notifyIconData.szInfo), 0);
-    notifyIconData.dwInfoFlags := NIIF_NONE;
-    notifyIconData.uFlags := NIF_MESSAGE or NIF_ICON or NIF_TIP;
-    Shell_NotifyIcon(NIM_MODIFY, @notifyIconData);
+    FillChar(s_notifyIconData.szInfoTitle, High(s_notifyIconData.szInfoTitle), 0);
+    FillChar(s_notifyIconData.szInfo, High(s_notifyIconData.szInfo), 0);
+    s_notifyIconData.dwInfoFlags := NIIF_NONE;
+    s_notifyIconData.uFlags := NIF_MESSAGE or NIF_ICON or NIF_TIP or NIF_STATE;
+    Shell_NotifyIcon(NIM_MODIFY, @s_notifyIconData);
   end;
 end;
 
 procedure TTrayIcon.Show(ATip: string);
 begin
-  if not bVisible then
+  if not s_bVisible then
   begin
     if not Assigned(s_ptrOldWindowProc) then
     begin
@@ -205,21 +214,20 @@ begin
     end;
     if not string.IsNullOrEmpty(ATip) and not string.IsNullOrWhiteSpace(ATip) then
     begin
-      StrLCopy(notifyIconData.szTip, PChar(ATip), High(notifyIconData.szTip));
+      StrLCopy(s_notifyIconData.szTip, PChar(ATip), High(s_notifyIconData.szTip));
     end;
-    Shell_NotifyIcon(NIM_ADD, @notifyIconData);
-    bVisible := True;
+    Shell_NotifyIcon(NIM_ADD, @s_notifyIconData);
+    s_bVisible := True;
   end;
 end;
 
 procedure TTrayIcon.Hide;
 begin
-  if bVisible then
+  if s_bVisible then
   begin
-    Shell_NotifyIcon(NIM_DELETE, @notifyIconData);
-    bVisible := False;
+    Shell_NotifyIcon(NIM_DELETE, @s_notifyIconData);
+    s_bVisible := False;
   end;
 end;
 
 end.
-
