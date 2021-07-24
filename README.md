@@ -34,9 +34,19 @@ TrayIcon.SetOnDoubleClick(On_Click_Function);
  // add a regular button
  TrayIcon.AddMenuAction('Test Action', On_Action_Clicked);
  ```
+ ### Displaying a balloon tip
+ ```Pascal
+ // use TBalloonType.None for a normal message (no sign)
+ // use TBalloonType.Info for an information message (exclamation mark sign)
+ // use TBalloonType.Warning for a warning message (warning sign)
+ // use TBalloonType.Error for an error message (error sign) 
+ TrayIcon.ShowBalloon('Title', 'Mesage', TBalloonType.None);
+ ```
+ 
  ### Displaying the icon
  ```Pascal
- TrayIcon.Show;
+ // the tip is the message that gets displayed when the user hovers over the icon
+ TrayIcon.Show('Tip text');
  ```
  ### Hiding the icon
   ```Pascal
