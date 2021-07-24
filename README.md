@@ -40,7 +40,7 @@ TrayIcon.SetOnDoubleClick(On_Click_Function);
  // use TBalloonType.Info for an information message (exclamation mark sign)
  // use TBalloonType.Warning for a warning message (warning sign)
  // use TBalloonType.Error for an error message (error sign) 
- TrayIcon.ShowBalloon('Title', 'Mesage', TBalloonType.None);
+ TrayIcon.ShowBalloon('Title', 'Message', TBalloonType.None);
  ```
  
  ### Displaying the icon
