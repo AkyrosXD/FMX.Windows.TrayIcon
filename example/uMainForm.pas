@@ -37,7 +37,7 @@ implementation
 
 procedure TMainForm.btnErrorClick(Sender: TObject);
 begin
-  TrayIcon.ShowBalloon('Title', 'Mesage', TBalloonType.Error);
+  TrayIcon.ShowBalloon('Title', 'Message', TBalloonType.Error);
 end;
 
 procedure TMainForm.btnHideTrayIconClick(Sender: TObject);
@@ -47,7 +47,7 @@ end;
 
 procedure TMainForm.btnInfoClick(Sender: TObject);
 begin
-  TrayIcon.ShowBalloon('Title', 'Mesage', TBalloonType.Info);
+  TrayIcon.ShowBalloon('Title', 'Message', TBalloonType.Info);
 end;
 
 procedure TMainForm.btnShowTrayIconClick(Sender: TObject);
@@ -66,7 +66,7 @@ end;
 
 procedure TMainForm.btnWarningClick(Sender: TObject);
 begin
-  TrayIcon.ShowBalloon('Title', 'Mesage', TBalloonType.Warning);
+  TrayIcon.ShowBalloon('Title', 'Message', TBalloonType.Warning);
 end;
 
 procedure TMainForm.TrayIconClick(Sender: TObject);
