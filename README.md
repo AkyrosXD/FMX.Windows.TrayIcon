@@ -9,7 +9,7 @@ var
  TrayIcon: TTrayIcon
  // make sure that you add FMX.Windows.TrayIcon to your "uses"
  ```
- ### Define your tray icon variable
+ ### Assign your tray icon variable
 ```Pascal
 TrayIcon := TTrayIcon.Create(Self);
 // Owner should be your FMX window and the value should not be nil
